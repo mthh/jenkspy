@@ -12,7 +12,7 @@ except:
 
 ext = '.pyx' if USE_CYTHON else '.c'
 
-exts = [Extension("jenkspy/jenks",
+exts = [Extension("jenkspy.jenks",
             ["jenkspy/src/jenks" + ext], ["jenkspy"])]
 
 setup(
