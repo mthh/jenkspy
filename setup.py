@@ -17,11 +17,12 @@ exts = [Extension("jenkspy.jenks",
 
 setup(
     name='jenkspy',
-    version='0.1.0',
+    version='0.1.1',
     license="MIT",
     ext_modules=cythonize(exts) if USE_CYTHON else exts,
     cmdclass = {'build_ext': build_ext} if USE_CYTHON else {},
     packages=find_packages(),
+    include_package_data=True,
     description="Compute Natural Breaks (Jenks algorythm)",
     test_suite="test_jenks",
     author="mthh",

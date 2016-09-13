@@ -38,7 +38,7 @@ Installation :
     cd jenkspy/
     python setup.py install
 
-Requierements (only for building from source):
+Requirements (only for building from source):
 ----------------------------------------------
 
 -  C compiler
