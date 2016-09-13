@@ -1,0 +1,25 @@
+language: python
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+sudo: required
+dist: trusty
+cache:
+  directories:
+    - ~/.cache/pip
+install:
+  - pip install numpy cython
+  - python setup.py install
+script:
+  - python tests/test_jenks.py
+addons:
+  apt:
+    sources:
+      - deadsnakes
+    packages:
+      - python3.5
+      - libpython3.5-dev
+      - python-numpy
+      - python3-numpy
+
