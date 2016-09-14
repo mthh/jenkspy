@@ -1,9 +1,8 @@
 # C/cython source files
-include jenkspy/src *.c
-include jenkspy/src *.pyx
+include jenkspy/src/*
 
 # Sample data for testing
-include tests *.json
+include tests/*
 
 include README.rst
 include LICENSE

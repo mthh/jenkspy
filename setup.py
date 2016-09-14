@@ -13,18 +13,18 @@ except:
 ext = '.pyx' if USE_CYTHON else '.c'
 
 exts = [Extension("jenkspy.jenks",
-            ["jenkspy/src/jenks" + ext], ["jenkspy"])]
+        ["jenkspy/src/jenks" + ext], ["jenkspy"])]
 
 setup(
     name='jenkspy',
-    version='0.1.1',
+    version='0.1.2',
     license="MIT",
     ext_modules=cythonize(exts) if USE_CYTHON else exts,
-    cmdclass = {'build_ext': build_ext} if USE_CYTHON else {},
+    cmdclass={'build_ext': build_ext} if USE_CYTHON else {},
     packages=find_packages(),
     include_package_data=True,
     description="Compute Natural Breaks (Jenks algorythm)",
-    test_suite="test_jenks",
+    test_suite="tests",
     author="mthh",
     url='http://github.com/mthh/jenkspy',
     classifiers=[
