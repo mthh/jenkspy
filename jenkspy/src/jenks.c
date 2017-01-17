@@ -10,7 +10,7 @@
             "jenkspy"
         ]
     },
-    "module_name": "jenkspy/jenks"
+    "module_name": "jenkspy.jenks"
 }
 END: Cython Metadata */
 

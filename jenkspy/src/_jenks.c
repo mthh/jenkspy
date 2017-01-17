@@ -61,17 +61,10 @@ JenksBreakValues(double *values, unsigned int nb_class,
     }
 
     kclass = (double *)malloc(k * sizeof(double));
-    for (i = 1; i <= k; i++) {
-        kclass[i-1] = i;
-    }
-
-    kclass[k - 1] = length_array;
     k = length_array;
-
     for (j = nb_class; j > 1; j--) {
         kclass[j - 2] = k = (int)(mat1[k-1][j-1]) - 1;
     }
-
     breaks[0] = values[0];
     for (i = 1; i < nb_class; i++) {
         breaks[i] = values[(int)(kclass[i - 1]) - 1];
