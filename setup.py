@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import setuptools
 from distutils.core import setup
 from distutils.extension import Extension
 from ast import parse
@@ -35,6 +36,7 @@ setup(
     description="Compute Natural Breaks (Jenks algorythm)",
     test_suite="tests",
     author="mthh",
+    author_email="matthieu.viry@ums-riate.fr",
     url='http://github.com/mthh/jenkspy',
     classifiers=[
         "Programming Language :: Python",
