@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 from distutils.core import setup
-from setuptools import find_packages
 from distutils.extension import Extension
+from ast import parse
+from os import path
+try:
+    from future_builtins import filter
+except ImportError:
+    pass
 
 try:
     from Cython.Distutils import build_ext
@@ -15,13 +20,17 @@ ext = '.pyx' if USE_CYTHON else '.c'
 exts = [Extension("jenkspy.jenks",
         ["jenkspy/src/jenks" + ext], ["jenkspy"])]
 
+with open(path.join('jenkspy', '__init__.py')) as f:
+    __version__ = parse(next(filter(lambda line: line.startswith('__version__'),
+                                     f))).body[0].value.s
+
 setup(
     name='jenkspy',
-    version='0.1.2',
+    version=__version__,
     license="MIT",
     ext_modules=cythonize(exts) if USE_CYTHON else exts,
     cmdclass={'build_ext': build_ext} if USE_CYTHON else {},
-    packages=find_packages(),
+    packages=["jenkspy"],
     include_package_data=True,
     description="Compute Natural Breaks (Jenks algorythm)",
     test_suite="tests",
@@ -29,11 +38,12 @@ setup(
     url='http://github.com/mthh/jenkspy',
     classifiers=[
         "Programming Language :: Python",
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 4 - Beta",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
         "Topic :: Scientific/Engineering",
         ],
     )
