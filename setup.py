@@ -35,8 +35,8 @@ setup(
     include_package_data=True,
     description="Compute Natural Breaks (Jenks algorythm)",
     test_suite="tests",
-    author="mthh",
-    author_email="matthieu.viry@ums-riate.fr",
+    author="Matthieu Viry",
+    author_email="matthieu.viry@cnrs.fr",
     url='http://github.com/mthh/jenkspy',
     classifiers=[
         "Programming Language :: Python",

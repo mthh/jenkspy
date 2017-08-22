@@ -1,9 +1,9 @@
 Fast Jenks breaks for Python
 ============================
 
-Compute "natural" break values (Jenks algorythm) on list/tuple/numpy.ndarray of integers/floats.
+Compute "natural breaks" (Jenks algorithm) on list/tuple/numpy.ndarray of integers/floats.
 
-(Intented compatibility: CPython 2.7+ and 3.3+ - Wheels are provided via PyPI for windows users)
+(Intented compatibility: CPython 2.7+ and 3.4+ - Wheels are provided via PyPI for windows users)
 
 |Version| |Build Status travis| |Build status appveyor|
 
