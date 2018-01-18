@@ -36,8 +36,16 @@ def jenks_breaks(values, nb_class):
     """
 
     if not isinstance(values, Iterable) or isinstance(values, (str, bytes)):
-        raise ValueError("A sequence of numbers is expected.")
+        raise TypeError("A sequence of numbers is expected")
+    if isinstance(nb_class, float) and int(nb_class) == nb_class:
+        nb_class = int(nb_class)
+    if not isinstance(nb_class, int):
+        raise TypeError(
+            "Number of class have to be a positive integer: "
+            "expected an instance of 'int' but found {}"
+            .format(type(nb_class)))
     if nb_class >= len(values) or nb_class < 2:
-        raise ValueError("Number of class have to be greater than 2 and "
-                         "smaller than the number of values to use.")
+        raise ValueError("Number of class have to be an integer "
+                         "greater than 2 and "
+                         "smaller than the number of values to use")
     return jenks._jenks_breaks(values, nb_class)
