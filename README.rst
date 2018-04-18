@@ -2,8 +2,10 @@ Fast Jenks breaks for Python
 ============================
 
 Compute "natural breaks" (Jenks algorithm) on list/tuple/numpy.ndarray of integers/floats.
-  
-Intented compatibility: CPython 2.7+ and 3.4+ - Wheels are provided via PyPI for windows users - Also available on conda-forge channel for Anaconda users  
+
+Intented compatibility: CPython 2.7+ and 3.4+
+
+Wheels are provided via PyPI for windows users - Also available on conda-forge channel for Anaconda users
 
 |Version| |Anaconda-Server Badge| |Build Status travis| |Build status appveyor|
 
@@ -28,19 +30,17 @@ Usage :
     >>> jenkspy.jenks_breaks(data, nb_class=5)
     (0.0028109620325267315, 2.0935479691252112, 4.205495140049607, 6.178148351609707, 8.09175917180255, 9.997982932254672)
 
-Installation 
+Installation
 ------------
 
-+ From pypi
-~~~~~~~~~~~
++ **From pypi**
 
 .. code:: shell
 
     pip install jenkspy
 
 
-+ From source
-~~~~~~~~~~~~~
++ **From source**
 
 .. code:: shell
 
@@ -49,12 +49,11 @@ Installation
     python setup.py install
 
 
-+ For anaconda users
-~~~~~~~~~~~~~~~~~~~~
++ **For anaconda users**
 
 .. code:: shell
 
-    conda install -c conda-forge jenkspy 
+    conda install -c conda-forge jenkspy
 
 
 Requirements (only for building from source):
@@ -84,5 +83,3 @@ Motivation :
 
 .. |Anaconda-Server Badge| image:: https://anaconda.org/conda-forge/jenkspy/badges/version.svg
    :target: https://anaconda.org/conda-forge/jenkspy
-
-
