@@ -28,18 +28,34 @@ Usage :
     >>> jenkspy.jenks_breaks(data, nb_class=5)
     (0.0028109620325267315, 2.0935479691252112, 4.205495140049607, 6.178148351609707, 8.09175917180255, 9.997982932254672)
 
-Installation :
---------------
+Installation 
+------------
+
++ From pypi
+~~~~~~~~~~~
 
 .. code:: shell
 
     pip install jenkspy
+
+
++ From source
+~~~~~~~~~~~~~
 
 .. code:: shell
 
     git clone http://github.com/mthh/jenkspy
     cd jenkspy/
     python setup.py install
+
+
++ For anaconda users
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: shell
+
+    conda install -c conda-forge jenkspy 
+
 
 Requirements (only for building from source):
 ----------------------------------------------
