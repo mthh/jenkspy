@@ -6,7 +6,7 @@ python:
   - "3.6"
   - "3.7"
 sudo: required
-dist: trusty
+dist: xenial
 cache:
   directories:
     - ~/.cache/pip
