@@ -15,6 +15,9 @@ environment:
     - PYTHON: "C:\\Python36"
       PYTHON_ARCH: "32"
       PYTHON_VERSION: "3.6.x"
+    - PYTHON: "C:\\Python37"
+      PYTHON_ARCH: "32"
+      PYTHON_VERSION: "3.7.x"
     - PYTHON: "C:\\Python27-x64"
       PYTHON_ARCH: "64"
       PYTHON_VERSION: "2.7.x"
@@ -27,6 +30,9 @@ environment:
     - PYTHON: "C:\\Python36-x64"
       PYTHON_ARCH: "64"
       PYTHON_VERSION: "3.6.x"
+    - PYTHON: "C:\\Python37-x64"
+      PYTHON_ARCH: "64"
+      PYTHON_VERSION: "3.7.x"
 
 install:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"

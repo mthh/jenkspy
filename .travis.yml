@@ -4,6 +4,7 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
 sudo: required
 dist: trusty
 cache:
@@ -16,11 +17,6 @@ script:
   - python tests/test_jenks.py
 addons:
   apt:
-    sources:
-      - deadsnakes
     packages:
-      - python3.5
-      - libpython3.5-dev
       - python-numpy
       - python3-numpy
-
