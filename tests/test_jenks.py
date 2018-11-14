@@ -52,6 +52,20 @@ class JenksClassTestCase(unittest.TestCase):
             jenks_breaks("a sequence of characters", 4)
         with self.assertRaises(TypeError):
             jenks_breaks(['a', 'b', 'c', 'd'], 3)
+        # Using a serie of values containing NaN or Inf values,
+        # the serie will now be too short for 4 class:
+        with self.assertWarns(UserWarning):
+            with self.assertRaises(ValueError):
+                jenks_breaks([1, 2, float('Inf'), float('NaN')], 4)
+        # Same with numpy array:
+        if np:
+            with self.assertWarns(UserWarning):
+                with self.assertRaises(ValueError):
+                    jenks_breaks(np.array([1, 2, float('Inf'), float('NaN')]), 4)
+
+    def test_warnings(self):
+        with self.assertWarns(UserWarning):
+            jenks_breaks([1, 2, 3, 4, 5, float('Inf'), float('NaN'), 12], 3)
 
     def test_integers(self):
         # The algorythm works using a list/an array of integer:

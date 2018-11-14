@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
+import warnings
 from collections import Iterable
+from math import isfinite
 from . import jenks
-
+try:
+    import numpy as np
+except ImportError:
+    np = None
 
 def jenks_breaks(values, nb_class):
     """
@@ -44,8 +49,20 @@ def jenks_breaks(values, nb_class):
             "Number of class have to be a positive integer: "
             "expected an instance of 'int' but found {}"
             .format(type(nb_class)))
-    if nb_class >= len(values) or nb_class < 2:
+
+    nb_values = len(values)
+    if np and isinstance(values, np.ndarray):
+        values = values[np.argwhere(np.isfinite(values)).reshape(-1)]
+    else:
+        values = [i for i in values if isfinite(i)]
+        
+    if len(values) != nb_values:
+        warnings.warn('Invalid values encountered (NaN or Inf) were ignored')
+        nb_values = len(values)
+    
+    if nb_class >= nb_values or nb_class < 2:
         raise ValueError("Number of class have to be an integer "
                          "greater than 2 and "
                          "smaller than the number of values to use")
+
     return jenks._jenks_breaks(values, nb_class)
