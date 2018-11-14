@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+import sys
 import unittest
 import json
+import warnings
 from jenkspy import jenks_breaks
 from array import array
 try:
@@ -8,7 +10,18 @@ try:
 except ImportError:
 	np = None
 
+PY2 = sys.version_info[0] < 3
+
 class JenksClassTestCase(unittest.TestCase):
+    if PY2:
+        def assertWarns(self, warning, callable, *args, **kwds):
+            with warnings.catch_warnings(record=True) as warning_list:
+                warnings.simplefilter('always')
+    
+                result = callable(*args, **kwds)
+    
+                self.assertTrue(any(item.category == warning for item in warning_list))
+
     def setUp(self):
         with open('tests/test.json', 'r') as f:
             self.data1 = json.loads(f.read())
@@ -54,18 +67,24 @@ class JenksClassTestCase(unittest.TestCase):
             jenks_breaks(['a', 'b', 'c', 'd'], 3)
         # Using a serie of values containing NaN or Inf values,
         # the serie will now be too short for 4 class:
-        with self.assertWarns(UserWarning):
             with self.assertRaises(ValueError):
-                jenks_breaks([1, 2, float('Inf'), float('NaN')], 4)
+                self.assertWarns(
+                    UserWarning,
+                    jenks_breaks,
+                    [1, 2, float('Inf'), float('NaN')], 4)
         # Same with numpy array:
         if np:
-            with self.assertWarns(UserWarning):
-                with self.assertRaises(ValueError):
-                    jenks_breaks(np.array([1, 2, float('Inf'), float('NaN')]), 4)
+            with self.assertRaises(ValueError):
+                self.assertWarns(
+                    UserWarning,
+                    jenks_breaks,
+                    np.array([1, 2, float('Inf'), float('NaN')]), 4)
 
     def test_warnings(self):
-        with self.assertWarns(UserWarning):
-            jenks_breaks([1, 2, 3, 4, 5, float('Inf'), float('NaN'), 12], 3)
+        self.assertWarns(
+            UserWarning,
+            jenks_breaks,
+            [1, 2, 3, 4, 5, float('Inf'), float('NaN'), 12], 3)
 
     def test_integers(self):
         # The algorythm works using a list/an array of integer:
