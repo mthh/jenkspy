@@ -7,7 +7,7 @@ Intented compatibility: CPython 2.7+ and 3.4+
 
 Wheels are provided via PyPI for windows users - Also available on conda-forge channel for Anaconda users
 
-|Version| |Anaconda-Server Badge| |Build Status travis| |Build status appveyor|
+|Version| |Anaconda-Server Badge| |Build Status travis| |Build status appveyor| |PyPI download month|
 
 Usage :
 -------
@@ -83,3 +83,6 @@ Motivation :
 
 .. |Anaconda-Server Badge| image:: https://anaconda.org/conda-forge/jenkspy/badges/version.svg
    :target: https://anaconda.org/conda-forge/jenkspy
+
+.. |PyPI download month| image:: https://img.shields.io/pypi/dm/jenkspy.svg
+   :target: https://pypi.python.org/pypi/jenkspy
