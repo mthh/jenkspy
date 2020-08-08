@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 import warnings
-from collections import Iterable
-try:
-    from math import isfinite
-except:
-    from math import isinf, isnan
-    isfinite = lambda x: not isinf(x) and not isnan(x)
+from collections.abc import Iterable
+from math import isfinite
 from . import jenks
 try:
     import numpy as np

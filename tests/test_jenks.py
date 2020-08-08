@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-import sys
 import unittest
 import json
-import warnings
 from jenkspy import jenks_breaks
 from array import array
 try:
@@ -10,18 +8,7 @@ try:
 except ImportError:
 	np = None
 
-PY2 = sys.version_info[0] < 3
-
 class JenksClassTestCase(unittest.TestCase):
-    if PY2:
-        def assertWarns(self, warning, callable, *args, **kwds):
-            with warnings.catch_warnings(record=True) as warning_list:
-                warnings.simplefilter('always')
-    
-                result = callable(*args, **kwds)
-    
-                self.assertTrue(any(item.category == warning for item in warning_list))
-
     def setUp(self):
         with open('tests/test.json', 'r') as f:
             self.data1 = json.loads(f.read())

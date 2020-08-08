@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from collections import Iterable
+# cython: language_level=3
 from libc.stdlib cimport malloc, free
 
 cdef extern from "_jenks.c":

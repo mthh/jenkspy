@@ -12,6 +12,9 @@ Wheels are provided via PyPI for windows users - Also available on conda-forge c
 Usage :
 -------
 
+The package consists of a single function (`jenks_breaks`) which takes as input a [list](https://docs.python.org/3/library/stdtypes.html#list)/[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)/[array.array](https://docs.python.org/3/library/array.html#array.array)/[numpy.ndarray](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html) of integers/floats.
+It returns a list of values that correspond to the limits of the classes (starting with the minimum value of the series - the lower bound of the first class - and ending with its maximum value - the upper bound of the last class).
+
 .. code:: python
 
     >>> import jenkspy
@@ -29,6 +32,10 @@ Usage :
     ...
     >>> jenkspy.jenks_breaks(data, nb_class=5)
     (0.0028109620325267315, 2.0935479691252112, 4.205495140049607, 6.178148351609707, 8.09175917180255, 9.997982932254672)
+    # ^                      ^                    ^                 ^                  ^                 ^
+    # Lower bound            Upper bound          Upper bound       Upper bound        Upper bound       Upper bound
+    # 1st class              1st class            2nd class         3rd class          4th class         5th class
+    # (Minimum value)                                                                                    (Maximum value)
 
 Installation
 ------------
@@ -70,7 +77,7 @@ Motivation :
    using *appveyor*).
 -  Getting the break values! (and fast!). No fancy functionnality provided,
    but contributions/forks/etc are welcome.
--  Other python implementations are currently existing.
+-  Other python implementations are currently existing but not as fast nor available on PyPi.
 
 .. |Build Status travis| image:: https://travis-ci.org/mthh/jenkspy.svg?branch=master
    :target: https://travis-ci.org/mthh/jenkspy

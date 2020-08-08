@@ -2,10 +2,6 @@ language: python
 matrix:
   include:
   - os: linux
-    dist: xenial
-    sudo: false
-    python: '2.7'
-  - os: linux
     dist: trusty
     sudo: false
     python: '3.4'

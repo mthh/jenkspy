@@ -3,9 +3,6 @@ environment:
     CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\appveyor\\run_with_env.cmd"
 
   matrix:
-    - PYTHON: "C:\\Python27"
-      PYTHON_ARCH: "32"
-      PYTHON_VERSION: "2.7.x"
     - PYTHON: "C:\\Python34"
       PYTHON_ARCH: "32"
       PYTHON_VERSION: "3.4.x"
@@ -18,9 +15,9 @@ environment:
     - PYTHON: "C:\\Python37"
       PYTHON_ARCH: "32"
       PYTHON_VERSION: "3.7.x"
-    - PYTHON: "C:\\Python27-x64"
-      PYTHON_ARCH: "64"
-      PYTHON_VERSION: "2.7.x"
+    - PYTHON: "C:\\Python38"
+      PYTHON_ARCH: "32"
+      PYTHON_VERSION: "3.8.x"
     - PYTHON: "C:\\Python34-x64"
       PYTHON_ARCH: "64"
       PYTHON_VERSION: "3.4.x"
@@ -33,6 +30,9 @@ environment:
     - PYTHON: "C:\\Python37-x64"
       PYTHON_ARCH: "64"
       PYTHON_VERSION: "3.7.x"
+    - PYTHON: "C:\\Python38-x64"
+      PYTHON_ARCH: "64"
+      PYTHON_VERSION: "3.8.x"
 install:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - ECHO "Filesystem root:"
