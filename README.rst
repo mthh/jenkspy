@@ -1,7 +1,7 @@
 Fast Jenks breaks for Python
 ============================
 
-Compute "natural breaks" (*Fisher-Jenks algorithm*) on list/tuple/numpy.ndarray of integers/floats.
+Compute "natural breaks" (*Fisher-Jenks algorithm*) on list / tuple / array / numpy.ndarray of integers/floats.
 
 Intented compatibility: CPython 3.4+
 
@@ -12,7 +12,7 @@ Wheels are provided via PyPI for windows users - Also available on conda-forge c
 Usage :
 -------
 
-The package consists of a single function (`jenks_breaks`) which takes as input a `list <https://docs.python.org/3/library/stdtypes.html#list>`_/`tuple <https://docs.python.org/3/library/stdtypes.html#tuple>`_/`array.array <https://docs.python.org/3/library/array.html#array.array>`_/`numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_ of integers or floats.
+This package consists of a single function (named `jenks_breaks`) which takes as input a `list <https://docs.python.org/3/library/stdtypes.html#list>`_ / `tuple <https://docs.python.org/3/library/stdtypes.html#tuple>`_ / `array.array <https://docs.python.org/3/library/array.html#array.array>`_ / `numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_ of integers or floats.
 It returns a list of values that correspond to the limits of the classes (starting with the minimum value of the series - the lower bound of the first class - and ending with its maximum value - the upper bound of the last class).
 
 
@@ -33,7 +33,7 @@ It returns a list of values that correspond to the limits of the classes (starti
     >>> with open('tests/test.json', 'r') as f:
     ...     data = json.loads(f.read())
     ...
-    >>> jenkspy.jenks_breaks(data, nb_class=5)
+    >>> jenkspy.jenks_breaks(data, nb_class=5) # Asking for 5 classes
     (0.0028109620325267315, 2.0935479691252112, 4.205495140049607, 6.178148351609707, 8.09175917180255, 9.997982932254672)
     # ^                      ^                    ^                 ^                  ^                 ^
     # Lower bound            Upper bound          Upper bound       Upper bound        Upper bound       Upper bound
