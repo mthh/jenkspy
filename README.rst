@@ -3,7 +3,7 @@ Fast Jenks breaks for Python
 
 Compute "natural breaks" (*Fisher-Jenks algorithm*) on list/tuple/numpy.ndarray of integers/floats.
 
-Intented compatibility: CPython 2.7+ and 3.4+
+Intented compatibility: CPython 3.4+
 
 Wheels are provided via PyPI for windows users - Also available on conda-forge channel for Anaconda users
 
@@ -12,8 +12,11 @@ Wheels are provided via PyPI for windows users - Also available on conda-forge c
 Usage :
 -------
 
-The package consists of a single function (`jenks_breaks`) which takes as input a [list](https://docs.python.org/3/library/stdtypes.html#list)/[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)/[array.array](https://docs.python.org/3/library/array.html#array.array)/[numpy.ndarray](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html) of integers/floats.
+The package consists of a single function (`jenks_breaks`) which takes as input a `list <https://docs.python.org/3/library/stdtypes.html#list>`_/`tuple <https://docs.python.org/3/library/stdtypes.html#tuple>`_/`array.array <https://docs.python.org/3/library/array.html#array.array>`_/`numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_ of integers or floats.
 It returns a list of values that correspond to the limits of the classes (starting with the minimum value of the series - the lower bound of the first class - and ending with its maximum value - the upper bound of the last class).
+
+
+
 
 .. code:: python
 
