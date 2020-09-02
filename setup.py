@@ -25,6 +25,9 @@ with open(path.join('jenkspy', '__init__.py')) as f:
     __version__ = parse(next(filter(lambda line: line.startswith('__version__'),
                                      f))).body[0].value.s
 
+with open('README.rst') as f:
+    long_desc = f.read()
+
 setup(
     name='jenkspy',
     version=__version__,
@@ -34,6 +37,7 @@ setup(
     packages=["jenkspy"],
     include_package_data=True,
     description="Compute Natural Breaks (Jenks algorythm)",
+    long_description=long_desc,
     test_suite="tests",
     author="Matthieu Viry",
     author_email="matthieu.viry@cnrs.fr",
