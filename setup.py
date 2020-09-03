@@ -40,7 +40,7 @@ setup(
     long_description=long_desc,
     test_suite="tests",
     author="Matthieu Viry",
-    author_email="matthieu.viry@cnrs.fr",
+    author_email="matthieu.viry@univ-grenoble-alpes.fr",
     url='http://github.com/mthh/jenkspy',
     classifiers=[
         "Programming Language :: Python",
