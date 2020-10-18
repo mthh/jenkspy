@@ -2,6 +2,13 @@ Changes
 =======
 
 
+
+0.2.0 (2020-10-18)
+------------------
+
+- Add `JenksNaturalBreaks` for computing breaks in a more object-oriented manner, with an interface similar to those provided by scikit-learn *(requires Numpy to take full advantage of it)* (thanks to @yasirroni, #11)
+
+
 0.1.6 (2020-09-02)
 ------------------
 
