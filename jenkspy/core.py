@@ -15,9 +15,13 @@ class JenksNaturalBreaks:
         
     def fit(self, x):
         self.breaks_ = jenks_breaks(x, self.nb_class)
-        self.inner_breaks_ = self.breaks_[1:-1] # because inner_breaks is more 
-        self.labels_ = self.predict(x)
-        self.groups_ = self.group(x)
+        self.inner_breaks_ = self.breaks_[1:-1] # because inner_breaks is more
+        if np:
+            self.labels_ = self.predict(x)
+            self.groups_ = self.group(x)
+        else:
+            import warnings
+            warnings.warn("No numpy module found. JenksNaturalBreaks interface only generate breaks_ and inner_breaks_")
         
     def predict(self, x):
         if np.size(x) == 1:
