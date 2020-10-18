@@ -40,6 +40,48 @@ It returns a list of values that correspond to the limits of the classes (starti
     # 1st class              1st class            2nd class         3rd class          4th class         5th class
     # (Minimum value)                                                                                    (Maximum value)
 
+
+
+This package also support a `JenksNaturalBreaks` (require `NumPy`) class as interface (inspired by `scikit-learn` classes). The `.fit` and `.group` behavior is slightly different from `jenks_breaks`, by accepting value outside the range of the minimum and maximum value of `breaks_`, retaining the input size. It means that fit and group will use only the `inner_bound_`. All value below the min bound will be included in the first group and all value higher than the max bound will be included in the last group.
+
+
+
+.. code:: python
+
+    >>> from jenkspy import JenksNaturalBreaks
+
+    >>> x = [0,1,2,3,4,5,6,7,8,9,10,11]
+
+    >>> jnb = JenksNaturalBreaks()
+
+    >>> try:
+    ...     print(jnb.labels_)
+    ...     print(jnb.groups_)
+    ...     print(jnb.inner_breaks_)
+    >>> except:
+    ...     pass
+
+    >>> jnb.fit(x)
+    >>> try:
+    ...     print(jnb.labels_)
+    ...     print(jnb.groups_)
+    ...     print(jnb.inner_breaks_)
+    >>> except:
+    ...     pass
+    [0 0 0 1 1 1 2 2 2 3 3 3]
+    [array([0, 1, 2]), array([3, 4, 5]), array([6, 7, 8]), array([ 9, 10, 11])]
+    [2.0, 5.0, 8.0]
+
+    >>> print(jnb.predict(15))
+    3
+
+    >>> print(jnb.predict([2.5, 3.5, 6.5]))
+    [1 1 2]
+
+    >>> print(jnb.group([2.5, 3.5, 6.5]))
+    [array([], dtype=float64), array([2.5, 3.5]), array([6.5]), array([], dtype=float64)]
+
+
 Installation
 ------------
 
@@ -66,11 +108,16 @@ Installation
     conda install -c conda-forge jenkspy
 
 
-Requirements (only for building from source):
+Requirements :
 ----------------------------------------------
 
--  C compiler
--  Python C headers
+-  NumPy\ :sup:`*` 
+-  C compiler\ :sup:`+`
+-  Python C headers\ :sup:`+`
+
+\ :sup:`*` only for using `JenksNaturalBreaks` interface
+
+\ :sup:`+` only for building from source
 
 Motivation :
 ------------
