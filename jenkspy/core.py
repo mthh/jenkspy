@@ -3,10 +3,53 @@ import warnings
 from collections.abc import Iterable
 from math import isfinite
 from . import jenks
+
 try:
     import numpy as np
 except ImportError:
     np = None
+
+class JenksNaturalBreaks:
+    def __init__(self, nb_class=6):
+        self.nb_class = nb_class
+        
+    def fit(self, x):
+        self.breaks_ = jenks_breaks(x, self.nb_class)
+        self.inner_breaks_ = self.breaks_[1:-1] # because inner_breaks is more
+        if np:
+            self.labels_ = self.predict(x)
+            self.groups_ = self.group(x)
+        else:
+            import warnings
+            warnings.warn("No numpy module found. JenksNaturalBreaks interface only generate breaks_ and inner_breaks_")
+        
+    def predict(self, x):
+        if np.size(x) == 1:
+            return np.array(self.get_label_(x, idx=0))
+        else:
+            labels_ = []
+            for val in x:
+                label_ = self.get_label_(val, idx=0)
+                labels_.append(label_)
+            return np.array(labels_)
+        
+    def group(self, x):
+        x = np.array(x)
+        groups_ = [x[x <= self.inner_breaks_[0]]]
+        for idx in range(len(self.inner_breaks_))[:-1]:
+            groups_.append(x[(x > self.inner_breaks_[idx]) * (x <= self.inner_breaks_[idx+1])])  
+        groups_.append(x[x > self.inner_breaks_[-1]])
+        return groups_
+    
+    def get_label_(self, val, idx=0):
+        try:
+            if val <= self.inner_breaks_[idx]:
+                return idx
+            else:
+                idx = self.get_label_(val, idx+1)
+                return idx
+        except:
+            return len(self.inner_breaks_)
 
 def jenks_breaks(values, nb_class):
     """

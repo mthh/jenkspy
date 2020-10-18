@@ -2,6 +2,7 @@
 import unittest
 import json
 from jenkspy import jenks_breaks
+from jenkspy import JenksNaturalBreaks
 from array import array
 try:
 	import numpy as np
@@ -20,7 +21,15 @@ class JenksClassTestCase(unittest.TestCase):
 
         self.res1 = (0.002810962, 2.0935481, 4.2054954, 6.1781483, 8.0917587, 9.997983)
         self.res2 = (1.0, 416.0, 767.0, 1083.0, 1424.0)
-
+        self.res3 = [1.0, 416.0, 767.0, 1083.0, 1424.0]
+        self.res4 = [416.0, 767.0, 1083.0]
+        if np:
+            self.res5 = np.array([0, 2, 0, 3, 3, 3, 0, 2, 2, 0, 2, 0, 3, 1, 0, 3, 0, 2, 1, 0, 3, 0, 1, 1, 2, 0, 1, 3, 3, 0, 2, 0, 2, 1, 2, 0, 0, 0, 0, 0, 1, 3, 0, 0, 3, 2, 1, 3, 1, 0])
+            self.res6 = [np.array([132, 312, 113, 416, 359, 73, 245, 255, 253, 39, 327, 328, 301, 96, 297, 179, 230, 1, 37, 230]), np.array([658, 683, 654, 736, 583, 678, 767, 663, 679]), np.array([915, 1028, 1078, 963, 848, 1079, 1083, 951, 927, 1009]), np.array([1424, 1240, 1370, 1422, 1326, 1223, 1367, 1237, 1248, 1352, 1283])]
+            self.res7 = np.array([0,1])
+            self.res8 = [np.array([150]), np.array([]), np.array([]), np.array([])]
+            self.res9 = [np.array([150]), np.array([700]), np.array([]), np.array([])]
+        
     def test_json_ref(self):
         # Test it against break values computed using another library
         # implementing jenks natural breaks:
@@ -96,6 +105,57 @@ class JenksClassTestCase(unittest.TestCase):
         with self.assertRaises(TypeError):
             jenks_breaks(self.data2, 4.7)
 
+    def test_calling_JenksNaturalBreaks_class(self):
+        # test calling JenksNaturalBreaks:
+        jnb = JenksNaturalBreaks()
+        self.assertEqual(type(jnb).__name__,'JenksNaturalBreaks')
+
+        jnb = JenksNaturalBreaks(nb_class=4)
+        self.assertEqual(jnb.nb_class,4)
+    
+    def test_JenksNaturalBreaks_fit(self):
+        jnb = JenksNaturalBreaks(nb_class=4)
+        jnb.fit(self.data2)
+        self.assertEqual(jnb.breaks_,self.res3)
+        self.assertEqual(jnb.inner_breaks_,self.res4)
+        if np:
+            self.assertEqual((jnb.labels_==self.res5).all(),True)
+            self.assertEqual(type(jnb.labels_).__name__,type(np.array([self.res5])).__name__)
+            for group_fit, group_true in zip(jnb.groups_, self.res6):
+                self.assertEqual((group_fit==group_true).all(),True)
+
+    def test_test_JenksNaturalBreaks_predict(self):
+        if np:
+            # predict before fit (not allowed)
+            jnb = JenksNaturalBreaks(nb_class=4)
+            with self.assertRaises(AttributeError):
+                jnb.predict(150)
+        
+            # predict single value
+            jnb.fit(self.data2)
+            self.assertEqual(jnb.predict(150),0)
+
+            # predict iterable return numpy array
+            predicted = jnb.predict([150,700])
+            for val_predict, val_true in zip(predicted, self.res7):
+                self.assertEqual(val_predict,val_true)
+                self.assertEqual(type(val_predict).__name__,type(val_true).__name__)
+
+    def test_grouping(self):
+        if np:
+            # grouping before fit (not allowed)
+            jnb = JenksNaturalBreaks(nb_class=4)
+            with self.assertRaises(AttributeError):
+                jnb.group(150)
+
+            # grouping single value, list, numpy array
+            jnb.fit(self.data2)
+            for group_fit, group_true in zip(jnb.group(150), self.res8):
+                self.assertEqual((group_fit==group_true).all(),True)
+            for group_fit, group_true in zip(jnb.group([150,700]), self.res9):
+                self.assertEqual((group_fit==group_true).all(),True)
+            for group_fit, group_true in zip(jnb.group(np.array([150,700])), self.res9):
+                self.assertEqual((group_fit==group_true).all(),True)
 
 if __name__ == "__main__":
     unittest.main()
