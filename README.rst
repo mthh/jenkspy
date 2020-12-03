@@ -42,7 +42,7 @@ It returns a list of values that correspond to the limits of the classes (starti
 
 
 
-This package also support a `JenksNaturalBreaks` (require `NumPy`) class as interface (inspired by `scikit-learn` classes). The `.fit` and `.group` behavior is slightly different from `jenks_breaks`, by accepting value outside the range of the minimum and maximum value of `breaks_`, retaining the input size. It means that fit and group will use only the `inner_bound_`. All value below the min bound will be included in the first group and all value higher than the max bound will be included in the last group.
+This package also support a `JenksNaturalBreaks` (require `NumPy`) class as interface (inspired by `scikit-learn` classes). The `.fit` and `.group` behavior is slightly different from `jenks_breaks`, by accepting value outside the range of the minimum and maximum value of `breaks_`, retaining the input size. It means that fit and group will use only the `inner_bound_`. All value below the min bound will be included in the first group and all value higher than the max bound will be included in the last group. Install using `pip install jenkspy[interface]` to automatically include `NumPy`.
 
 
 
@@ -91,6 +91,12 @@ Installation
 
     pip install jenkspy
 
+
++ **To include numpy in pypi**
+
+.. code:: shell
+
+    pip install jenkspy[interface]
 
 + **From source**
 
