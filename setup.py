@@ -52,4 +52,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Topic :: Scientific/Engineering",
         ],
+    extras_require={
+        'interface': ['numpy']
+    }
     )
