@@ -41,6 +41,17 @@ class JenksNaturalBreaks:
         groups_.append(x[x > self.inner_breaks_[-1]])
         return groups_
     
+    def goodness_of_variance_fit(self, x):
+        x = np.array(x)
+        array_mean = np.mean(x)
+        sdam = sum([(value - array_mean)**2 for value in x])
+        sdcm = 0
+        for group in self.groups_:
+            group_mean = np.mean(group)
+            sdcm += sum([(value - group_mean)**2 for value in group])
+        gvf = (sdam - sdcm)/sdam
+        return gvf
+
     def get_label_(self, val, idx=0):
         try:
             if val <= self.inner_breaks_[idx]:
