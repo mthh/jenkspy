@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.2.1 (2022-xx-xx)
+------------------
+
+- Add a method to the JenksNaturalBreaks class that calculates the Goodness of Fit Variance thanks to Maurício Gomes / @mgomesq (#17).
+
+- Add optional download numpy using [interface] thanks to Muhammad Yasirroni / @yasirroni (#16).
+
+- Update Travis and Appveyor recipes to builds wheels for currently supported python version (according to https://devguide.python.org/versions/#supported-versions)
 
 
 0.2.0 (2020-10-18)
