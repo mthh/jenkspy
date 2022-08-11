@@ -24,7 +24,7 @@ jobs:
         env:
           CIBW_BEFORE_BUILD: pip install numpy cython
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-          CIBW_SKIP: "*musllinux*"
+          CIBW_SKIP: "pp* *musllinux*"
           CIBW_ARCHS: native
           CIBW_TEST_COMMAND: python {package}/tests/test_jenks.py
 
