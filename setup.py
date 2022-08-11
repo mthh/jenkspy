@@ -55,4 +55,4 @@ setup(
     extras_require={
         'interface': ['numpy']
     }
-    )
+)
