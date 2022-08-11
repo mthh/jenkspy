@@ -2,25 +2,25 @@ language: python
 matrix:
   include:
   - os: linux
-    dist: trusty
-    sudo: false
-    python: '3.4'
-  - os: linux
-    dist: xenial
-    sudo: false
-    python: '3.5'
-  - os: linux
-    dist: xenial
-    sudo: false
-    python: '3.6'
-  - os: linux
-    dist: xenial
+    dist: jammy
     sudo: true
     python: '3.7'
   - os: linux
-    dist: xenial
+    dist: jammy
     sudo: true
     python: '3.8'
+  - os: linux
+    dist: jammy
+    sudo: true
+    python: '3.9'
+  - os: linux
+    dist: jammy
+    sudo: true
+    python: '3.10'
+  - os: linux
+    dist: jammy
+    sudo: true
+    python: '3.11'
 cache:
   directories:
     - ~/.cache/pip
@@ -32,5 +32,4 @@ script:
 addons:
   apt:
     packages:
-      - python-numpy
       - python3-numpy
