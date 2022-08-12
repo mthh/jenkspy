@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.2.1 (2022-08-xx)
+0.2.1 (2022-08-12)
 ------------------
 
 - Add a method to the `JenksNaturalBreaks` class that calculates the Goodness of Fit Variance thanks to Maurício Gomes / @mgomesq (#17).

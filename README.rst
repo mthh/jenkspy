@@ -3,19 +3,17 @@ Fast Jenks breaks for Python
 
 Compute "natural breaks" (*Fisher-Jenks algorithm*) on list / tuple / array / numpy.ndarray of integers/floats.
 
-Intented compatibility: CPython 3.4+
+Intended compatibility: CPython 3.6+
 
-Wheels are provided via PyPI for windows users - Also available on conda-forge channel for Anaconda users
+Wheels are provided via PyPI for Windows / MacOS / Linux users - Also available on conda-forge channel for Anaconda users.
 
-|Version| |Anaconda-Server Badge| |Build Status travis| |Build status appveyor| |PyPI download month|
+|Version| |Anaconda-Server Badge| |Build Status GH| |PyPI download month|
 
 Usage :
 -------
 
 This package consists of a single function (named `jenks_breaks`) which takes as input a `list <https://docs.python.org/3/library/stdtypes.html#list>`_ / `tuple <https://docs.python.org/3/library/stdtypes.html#tuple>`_ / `array.array <https://docs.python.org/3/library/array.html#array.array>`_ / `numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_ of integers or floats.
 It returns a list of values that correspond to the limits of the classes (starting with the minimum value of the series - the lower bound of the first class - and ending with its maximum value - the upper bound of the last class).
-
-
 
 
 .. code:: python
@@ -130,16 +128,13 @@ Motivation :
 
 -  Making a painless installing C extension so it could be used more easily
    as a dependency in an other package (and so learning how to build wheels
-   using *appveyor*).
--  Getting the break values! (and fast!). No fancy functionnality provided,
+   using *appveyor* / *travis* at first - now it uses *GitHub Actions*).
+-  Getting the break values! (and fast!). No fancy functionality provided,
    but contributions/forks/etc are welcome.
 -  Other python implementations are currently existing but not as fast nor available on PyPi.
 
-.. |Build Status travis| image:: https://travis-ci.org/mthh/jenkspy.svg?branch=master
-   :target: https://travis-ci.org/mthh/jenkspy
-
-.. |Build status appveyor| image:: https://ci.appveyor.com/api/projects/status/9ffk6juf2499xqk0/branch/master?svg=true
-   :target: https://ci.appveyor.com/project/mthh/jenkspy/branch/master
+.. |Build status GH| image:: https://github.com/mthh/jenkspy/actions/workflows/wheel.yml/badge.svg
+   :target: https://github.com/mthh/jenkspy/actions/workflows/wheel.yml
 
 .. |Version| image:: https://img.shields.io/pypi/v/jenkspy.svg
    :target: https://pypi.python.org/pypi/jenkspy
