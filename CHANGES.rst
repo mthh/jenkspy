@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.2.2 (2022-08-12)
+------------------
+
+- Update docstring to fix return type of `jenks_breaks` (fix #26).
+
+
 0.2.1 (2022-08-12)
 ------------------
 
