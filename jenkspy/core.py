@@ -78,7 +78,7 @@ def jenks_breaks(values, nb_class):
 
     Returns
     -------
-    breaks : tuple of floats
+    breaks : list of floats
         The computed break values, including minimum and maximum, in order
         to have all the bounds for building `nb_class` class,
         so the returned tuple has a length of `nb_class` + 1.
@@ -90,7 +90,7 @@ def jenks_breaks(values, nb_class):
 
     >>> jenks_breaks(
             [1.3, 7.1, 7.3, 2.3, 3.9, 4.1, 7.8, 1.2, 4.3, 7.3, 5.0, 4.3],
-            nb_class = 3)  # Should output (1.2, 2.3, 5.0, 7.8)
+            nb_class = 3)  # Should output [1.2, 2.3, 5.0, 7.8]
 
     """
 
