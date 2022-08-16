@@ -9,15 +9,17 @@ cdef extern from "_jenks.c":
 cpdef _jenks_breaks(values, nb_class):
     cdef:
         list breaks = []
-        unsigned int _n_breaks = int(nb_class) + 1
-        unsigned int len_values = len(values), i = 0
-        double *_values = <double *>malloc(<unsigned int>len_values * sizeof(double))
-        double *_breaks = <double *>malloc(<unsigned int>_n_breaks * sizeof(double))
+        unsigned int _nb_class = <unsigned int>int(nb_class)
+        unsigned int _n_breaks = <unsigned int>_nb_class + 1
+        unsigned int len_values = <unsigned int>len(values)
+        unsigned int i = 0
+        double *_values = <double *>malloc(len_values * sizeof(double))
+        double *_breaks = <double *>malloc(_n_breaks * sizeof(double))
 
     for i in range(len_values):
         _values[i] = <double>values[i]
 
-    JenksBreakValues(_values, <unsigned int>_n_breaks - 1, len_values, _breaks)
+    JenksBreakValues(_values, _nb_class, len_values, _breaks)
 
     for i in range(<unsigned int>_n_breaks):
         breaks.append(_breaks[i])

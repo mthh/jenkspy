@@ -13,69 +13,81 @@ static void
 JenksBreakValues(double *values, unsigned int nb_class,
                  unsigned int length_array, double *breaks)
 {
-    int i3, i4;
-    unsigned int i=0, j=0, l=0, m=0, k = nb_class;
-    double v, val, s1, s2, w;
-    double *kclass = NULL;
-    double **mat1 = (double **)malloc(length_array * sizeof(double*)),
-        **mat2 = (double **)malloc(length_array * sizeof(double*)),
-        *row = NULL;
+    int lower_class_limit, i4, k;
+    unsigned int i=0, j=0, l=0, m=0;
+    double variance, val, sum, sum_squares, w, temp_val;
+    int **lower_class_limits = (int **)malloc((length_array + 1) * sizeof(int*)),
+        *row_int = NULL;
+    double **variance_combinations = (double **)malloc((length_array + 1) * sizeof(double*)),
+        *row_double = NULL;
 
+    // Sort the target array
     qsort(values, length_array, sizeof(double), compare_doubles);
 
-    for (i = 0; i < length_array; i++) {
-        row = (double *)malloc(k * sizeof(double));
-        for (j = 0; j < k; j++) { row[j] = 1.0; }
-        mat1[i] = row;
+    // Initialise the lower_class_limits and variance_combinations arrays
+    for (i = 0; i < length_array + 1; i++) {
+        row_int = (int *)malloc((nb_class + 1) * sizeof(int));
+        memset(row_int, 0, (nb_class + 1) * sizeof(int));
+        lower_class_limits[i] = row_int;
 	}
 
-    for (i = 0; i < length_array; i++) {
-        row = (double *)malloc(k * sizeof(double));
-        for (j = 0; j < k; j++) { row[j] = FLT_MAX; }
-        mat2[i] = row;
+    for (i = 0; i < length_array + 1; i++) {
+        row_double = (double *)malloc((nb_class + 1) * sizeof(double));
+        memset(row_double, 0.0, (nb_class + 1) * sizeof(double));
+        variance_combinations[i] = row_double;
 	}
 
-    v = 0;
-    for (l = 2; l <= length_array; l++) {
-        s1 = s2 = w = 0;
-        for (m = 1; m <= l; m++) {
-            i3 = l - m + 1;
-            val = values[(i3-1)];
-            s2 += val * val;
-            s1 += val;
-            w++;
-            v = s2 - (s1 * s1) / w;
-            i4 = i3 - 1;
+    for (i = 1; i < nb_class + 1; i++) {
+        lower_class_limits[0][i] = 1;
+        lower_class_limits[1][i] = 1;
+        for (j = 2; j < length_array + 1; j++) { variance_combinations[j][i] = DBL_MAX; }
+    }
 
-            if(i4) {
-                for (j = 2; j <= k; j++) {
-                    if (mat2[l-1][j-1] >= (v + mat2[i4-1][j-2])) {
-                        mat1[l-1][j-1] = i3;
-                        mat2[l-1][j-1] = v + mat2[i4-1][j-2];
-                        }
+    variance = 0;
+    for (l = 2; l < length_array + 1; l++) {
+        sum = sum_squares = w = 0.0;
+        for (m = 1; m < l + 1; m++) {
+            lower_class_limit = l - m + 1;
+
+            val = values[lower_class_limit - 1];
+
+            w += 1.0;
+            sum += val;
+            sum_squares += val * val;
+            variance = sum_squares - (sum * sum) / w;
+            i4 = lower_class_limit - 1;
+
+            if(i4 != 0) {
+                for (j = 2; j < nb_class + 1; j++) {
+                    temp_val = (variance + variance_combinations[i4][j - 1]);
+                    if (fabs(variance_combinations[l][j] - temp_val) < DBL_EPSILON || variance_combinations[l][j] > temp_val) {
+                        lower_class_limits[l][j] = lower_class_limit;
+                        variance_combinations[l][j] = temp_val;
+                    }
                 }
             }
         }
-        mat1[l-1][0] = 1;
-        mat2[l-1][0] = v;
+        lower_class_limits[l][1] = 1;
+        variance_combinations[l][1] = variance;
     }
 
-    kclass = (double *)malloc(k * sizeof(double));
+    // Prepare the class limits
     k = length_array;
-    for (j = nb_class; j > 1; j--) {
-        kclass[j - 2] = k = (int)(mat1[k-1][j-1]) - 1;
-    }
+    // First value is the minimum of the target array
     breaks[0] = values[0];
-    for (i = 1; i < nb_class; i++) {
-        breaks[i] = values[(int)(kclass[i - 1]) - 1];
-    }
-    breaks[nb_class] = values[(int)length_array-1];
+    // Last value is the maximum of the target array
+    breaks[nb_class] = values[(int)length_array - 1];
 
-    for (i = 0; i < length_array; i++) {
-        free(mat1[i]);
-        free(mat2[i]);
+    for (j = nb_class; j > 1; j--) {
+        breaks[j - 1] = values[lower_class_limits[k][j] - 2];
+        k = lower_class_limits[k][j] - 1;
     }
-    free(mat1);
-    free(mat2);
-    free(kclass);
+
+    // Free lower_class_limits and variance_combinations arrays
+    for (i = 0; i < length_array + 1; i++) {
+        free(lower_class_limits[i]);
+        free(variance_combinations[i]);
+    }
+    free(lower_class_limits);
+    free(variance_combinations);
 }
