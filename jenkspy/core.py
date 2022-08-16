@@ -9,13 +9,31 @@ try:
 except ImportError:
     np = None
 
+
+def is_big_integer(n):
+    """
+    Returns True if the value will overflow when converted to a C double.
+
+    Parameters
+    ----------
+    n : int
+        The value to check.
+
+    Returns
+    -------
+    bool
+        True if the value will overflow when converted to a C double.
+    """
+    return n > 2**53 or n < -2**53
+
+
 class JenksNaturalBreaks:
     def __init__(self, nb_class=6):
         self.nb_class = nb_class
         
     def fit(self, x):
         self.breaks_ = jenks_breaks(x, self.nb_class)
-        self.inner_breaks_ = self.breaks_[1:-1] # because inner_breaks is more
+        self.inner_breaks_ = self.breaks_[1:-1]  # because inner_breaks is more
         if np:
             self.labels_ = self.predict(x)
             self.groups_ = self.group(x)
@@ -62,6 +80,7 @@ class JenksNaturalBreaks:
         except:
             return len(self.inner_breaks_)
 
+
 def jenks_breaks(values, nb_class):
     """
     Compute jenks natural breaks on a sequence of `values`, given `nb_class`,
@@ -93,7 +112,6 @@ def jenks_breaks(values, nb_class):
             nb_class = 3)  # Should output [1.2, 2.3, 5.0, 7.8]
 
     """
-
     if not isinstance(values, Iterable) or isinstance(values, (str, bytes)):
         raise TypeError("A sequence of numbers is expected")
     if isinstance(nb_class, float) and int(nb_class) == nb_class:
@@ -104,19 +122,22 @@ def jenks_breaks(values, nb_class):
             "expected an instance of 'int' but found {}"
             .format(type(nb_class)))
 
-    nb_values = len(values)
+    # Check that all values are finite (and that numpy arrays are 1-dimensional)
     if np and isinstance(values, np.ndarray):
-        values = values[np.argwhere(np.isfinite(values)).reshape(-1)]
+        if len(values.shape) != 1:
+            raise ValueError("A 1D array is expected")
+        if not np.isfinite(values).all():
+            raise ValueError("All values have to be finite")
     else:
-        values = [i for i in values if isfinite(i)]
-        
-    if len(values) != nb_values:
-        warnings.warn('Invalid values encountered (NaN or Inf) were ignored')
-        nb_values = len(values)
-    
-    if nb_class >= nb_values or nb_class < 2:
-        raise ValueError("Number of class have to be an integer "
-                         "greater than 2 and "
-                         "smaller than the number of values to use")
+        if not all(isfinite(i) for i in values):
+            raise ValueError("All values have to be finite")
+
+    # Check that values won't cause a segmentation error when converted to C double
+    if any(is_big_integer(i) for i in values):
+        raise ValueError("The sequence of values contains integers that will overflow C double capacities")
+
+    if nb_class >= len(values) or nb_class < 1:
+        raise ValueError("Number of class have to be an integer greater than 1 and "
+                         "smaller or equal than the number of values to use")
 
     return jenks._jenks_breaks(values, nb_class)
