@@ -73,8 +73,9 @@ class JenksClassTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             jenks_breaks([1, 2, 3, 4, 5, float('Inf'), float('NaN'), 12], 3)
         # Same if they are in a numpy array
-        with self.assertRaises(ValueError):
-            jenks_breaks(np.array([1, 2, 3, 4, 5, float('Inf'), float('NaN'), 12]), 3)
+        if np:
+            with self.assertRaises(ValueError):
+                jenks_breaks(np.array([1, 2, 3, 4, 5, float('Inf'), float('NaN'), 12]), 3)
 
     def test_integers(self):
         # The algorithm works using a list/an array of integer:
