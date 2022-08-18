@@ -12,7 +12,7 @@ Wheels are provided via PyPI for Windows / MacOS / Linux users - Also available 
 Usage
 -----
 
-This package consists of a single function (named ``jenks_breaks``) which takes as input a ``list <https://docs.python.org/3/library/stdtypes.html#list>``_ / ``tuple <https://docs.python.org/3/library/stdtypes.html#tuple>``_ / ``array.array <https://docs.python.org/3/library/array.html#array.array>``_ / ``numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>``_ of integers or floats.
+This package consists of a single function (named ``jenks_breaks``) which takes as input a `list <https://docs.python.org/3/library/stdtypes.html#list>`_ / `tuple <https://docs.python.org/3/library/stdtypes.html#tuple>`_ / `array.array <https://docs.python.org/3/library/array.html#array.array>`_ / `numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_ of integers or floats.
 It returns a list of values that correspond to the limits of the classes (starting with the minimum value of the series - the lower bound of the first class - and ending with its maximum value - the upper bound of the last class).
 
 
@@ -110,13 +110,13 @@ Installation
 Requirements :
 ----------------------------------------------
 
--  NumPy\ :sup:``*``
--  C compiler\ :sup:``+``
--  Python C headers\ :sup:``+``
+-  NumPy\ :sup:`*`
+-  C compiler\ :sup:`+`
+-  Python C headers\ :sup:`+`
 
-\ :sup:``*`` only for using ``JenksNaturalBreaks`` interface
+\ :sup:`*` only for using ``JenksNaturalBreaks`` interface
 
-\ :sup:``+`` only for building from source
+\ :sup:`+` only for building from source
 
 Motivation :
 ------------
