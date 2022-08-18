@@ -40,8 +40,11 @@ It returns a list of values that correspond to the limits of the classes (starti
 
 
 
-This package also support a ``JenksNaturalBreaks`` class as interface (it requires `NumPy` and it is inspired by ``scikit-learn`` classes). The ``.fit`` and ``.group`` behavior is slightly different from ``jenks_breaks``, by accepting value outside the range of the minimum and maximum value of ``breaks_``, retaining the input size. It means that fit and group will use only the ``inner_bound_``. All value below the min bound will be included in the first group and all value higher than the max bound will be included in the last group. Install using ``pip install jenkspy[interface]`` to automatically include ``NumPy``.
+This package also support a ``JenksNaturalBreaks`` class as interface (it requires `NumPy` and it is inspired by ``scikit-learn`` classes).
 
+The ``.fit`` and ``.group`` behavior is slightly different from ``jenks_breaks``, by accepting value outside the range of the minimum and maximum value of ``breaks_``, retaining the input size. It means that fit and group will use only the ``inner_breaks_``. All value below the min bound will be included in the first group and all value higher than the max bound will be included in the last group.
+
+Install using ``pip install jenkspy[interface]`` to automatically include ``NumPy``.
 
 
 .. code:: python
@@ -50,33 +53,25 @@ This package also support a ``JenksNaturalBreaks`` class as interface (it requir
 
     >>> x = [0,1,2,3,4,5,6,7,8,9,10,11]
 
-    >>> jnb = JenksNaturalBreaks()
-
-    >>> try:
-    ...     print(jnb.labels_)
-    ...     print(jnb.groups_)
-    ...     print(jnb.inner_breaks_)
-    >>> except:
-    ...     pass
+    >>> jnb = JenksNaturalBreaks(4) # Asking for 4 clusters
 
     >>> jnb.fit(x)
-    >>> try:
-    ...     print(jnb.labels_)
-    ...     print(jnb.groups_)
-    ...     print(jnb.inner_breaks_)
-    >>> except:
-    ...     pass
+    >>> print(jnb.labels_) # Labels for fitted data
+    ... print(jnb.groups_) # Content of each group
+    ... print(jnb.breaks_) # Break values (including min and max)
+    ... print(jnb.inner_breaks_) # Inner breaks (ie breaks_[1:-1])
     [0 0 0 1 1 1 2 2 2 3 3 3]
     [array([0, 1, 2]), array([3, 4, 5]), array([6, 7, 8]), array([ 9, 10, 11])]
+    [0.0, 2.0, 5.0, 8.0, 11.0]
     [2.0, 5.0, 8.0]
 
-    >>> print(jnb.predict(15))
+    >>> print(jnb.predict(15)) # Predict the group of a value
     3
 
-    >>> print(jnb.predict([2.5, 3.5, 6.5]))
+    >>> print(jnb.predict([2.5, 3.5, 6.5])) # Predict the group of several values
     [1 1 2]
 
-    >>> print(jnb.group([2.5, 3.5, 6.5]))
+    >>> print(jnb.group([2.5, 3.5, 6.5])) # Group the elements into there groups
     [array([], dtype=float64), array([2.5, 3.5]), array([6.5]), array([], dtype=float64)]
 
 
