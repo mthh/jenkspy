@@ -1,5 +1,5 @@
-Fast Jenks breaks for Python
-============================
+Fast Fisher-Jenks breaks for Python
+===================================
 
 Compute "natural breaks" (*Fisher-Jenks algorithm*) on list / tuple / array / numpy.ndarray of integers/floats.
 
@@ -9,10 +9,10 @@ Wheels are provided via PyPI for Windows / MacOS / Linux users - Also available 
 
 |Version| |Anaconda-Server Badge| |Build Status GH| |PyPI download month|
 
-Usage :
--------
+Usage
+-----
 
-This package consists of a single function (named `jenks_breaks`) which takes as input a `list <https://docs.python.org/3/library/stdtypes.html#list>`_ / `tuple <https://docs.python.org/3/library/stdtypes.html#tuple>`_ / `array.array <https://docs.python.org/3/library/array.html#array.array>`_ / `numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_ of integers or floats.
+This package consists of a single function (named ``jenks_breaks``) which takes as input a ``list <https://docs.python.org/3/library/stdtypes.html#list>``_ / ``tuple <https://docs.python.org/3/library/stdtypes.html#tuple>``_ / ``array.array <https://docs.python.org/3/library/array.html#array.array>``_ / ``numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>``_ of integers or floats.
 It returns a list of values that correspond to the limits of the classes (starting with the minimum value of the series - the lower bound of the first class - and ending with its maximum value - the upper bound of the last class).
 
 
@@ -40,7 +40,7 @@ It returns a list of values that correspond to the limits of the classes (starti
 
 
 
-This package also support a `JenksNaturalBreaks` (require `NumPy`) class as interface (inspired by `scikit-learn` classes). The `.fit` and `.group` behavior is slightly different from `jenks_breaks`, by accepting value outside the range of the minimum and maximum value of `breaks_`, retaining the input size. It means that fit and group will use only the `inner_bound_`. All value below the min bound will be included in the first group and all value higher than the max bound will be included in the last group. Install using `pip install jenkspy[interface]` to automatically include `NumPy`.
+This package also support a ``JenksNaturalBreaks`` class as interface (it requires `NumPy` and it is inspired by ``scikit-learn`` classes). The ``.fit`` and ``.group`` behavior is slightly different from ``jenks_breaks``, by accepting value outside the range of the minimum and maximum value of ``breaks_``, retaining the input size. It means that fit and group will use only the ``inner_bound_``. All value below the min bound will be included in the first group and all value higher than the max bound will be included in the last group. Install using ``pip install jenkspy[interface]`` to automatically include ``NumPy``.
 
 
 
@@ -115,13 +115,13 @@ Installation
 Requirements :
 ----------------------------------------------
 
--  NumPy\ :sup:`*` 
--  C compiler\ :sup:`+`
--  Python C headers\ :sup:`+`
+-  NumPy\ :sup:``*``
+-  C compiler\ :sup:``+``
+-  Python C headers\ :sup:``+``
 
-\ :sup:`*` only for using `JenksNaturalBreaks` interface
+\ :sup:``*`` only for using ``JenksNaturalBreaks`` interface
 
-\ :sup:`+` only for building from source
+\ :sup:``+`` only for building from source
 
 Motivation :
 ------------
