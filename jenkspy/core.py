@@ -146,8 +146,8 @@ class JenksNaturalBreaks:
 
 def jenks_breaks(values, nb_class):
     """
-    Compute jenks natural breaks on a sequence of `values`, given `nb_class`,
-    the number of desired class.
+    Compute natural breaks (Fisher-Jenks algorithm) on a sequence of `values`,
+    given `nb_class`, the number of desired class.
 
     Parameters
     ----------
@@ -163,7 +163,7 @@ def jenks_breaks(values, nb_class):
     breaks : list of floats
         The computed break values, including minimum and maximum, in order
         to have all the bounds for building `nb_class` class,
-        so the returned tuple has a length of `nb_class` + 1.
+        so the returned list has a length of `nb_class` + 1.
 
 
     Examples
