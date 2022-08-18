@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.2.3 (2022-xx-xx)
+0.2.3 (2022-08-18)
 ------------------
 
 - Check size of integer values given to `jenks_breaks` function to avoid Segfault when casting to C double (fixes #23).
@@ -10,9 +10,9 @@ Changes
 
 - Raise an error when the target numpy.ndarray is not one-dimensional (fixes #25).
 
-- Improve implementation of `JenksBreakValues` C function by using better variable naming,
-  by using the same array size than in most implementation and by simplifying the construction
-  of the 'breaks' array (should partly fix #22).
+- Improve implementation of `JenksBreakValues` C function by using better variable naming and by simplifying the construction of the 'breaks' array (should partly fix #22).
+
+- Add docstrings to `JenksNaturalBreaks` methods.
 
 
 0.2.2 (2022-08-12)
