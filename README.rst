@@ -3,6 +3,8 @@ Fast Fisher-Jenks breaks for Python
 
 Compute "natural breaks" (*Fisher-Jenks algorithm*) on list / tuple / array / numpy.ndarray of integers/floats.
 
+The algorithm implemented by this library is also sometimes referred to as *Fisher-Jenks algorithm*, *Jenks Optimisation Method* or *Fisher exact optimization method*. This is a deterministic method to calculate the optimal class boundaries.
+
 Intended compatibility: CPython 3.6+
 
 Wheels are provided via PyPI for Windows / MacOS / Linux users - Also available on conda-forge channel for Anaconda users.
