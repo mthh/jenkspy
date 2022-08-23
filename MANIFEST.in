@@ -4,3 +4,4 @@ include jenkspy/src/*
 include README.rst
 include LICENSE
 include tests/*.*
+include requirements.txt

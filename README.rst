@@ -35,7 +35,7 @@ Two ways of using `jenkspy` are available:
     # (Minimum value)                                                                                    (Maximum value)
 
 
-- by using the ``JenksNaturalBreaks`` class that is inspired by ``scikit-learn`` classes).
+- by using the ``JenksNaturalBreaks`` class that is inspired by ``scikit-learn`` classes.
 
 The ``.fit`` and ``.group`` behavior is slightly different from ``jenks_breaks``, by accepting value outside the range of the minimum and maximum value of ``breaks_``, retaining the input size. It means that fit and group will use only the ``inner_breaks_``. All value below the min bound will be included in the first group and all value higher than the max bound will be included in the last group.
 

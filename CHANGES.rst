@@ -1,12 +1,17 @@
 Changes
 =======
 
+0.3.1 (2022-08-23)
+------------------
+
+- Add missing requirements.txt file in MANIFEST.in and in sdist package.
+
 0.3.0 (2022-08-23)
 ------------------
 
 - Add NumPy as a mandatory dependency.
 
-- Only compute matrices in C code and move sorting of the values, casting to double, and computing the actual breaks to Python/Cython code for better maintainability.
+- Only compute matrices in C code and move sorting the values, casting to double, and computing the actual breaks to Python/Cython code for better maintainability.
 
 - Improve performance by using 1D arrays instead of 2D arrays in ``JenksBreakValues`` C function.
 
