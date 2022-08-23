@@ -14,50 +14,40 @@ Wheels are provided via PyPI for Windows / MacOS / Linux users - Also available 
 Usage
 -----
 
-This package consists of a single function (named ``jenks_breaks``) which takes as input a `list <https://docs.python.org/3/library/stdtypes.html#list>`_ / `tuple <https://docs.python.org/3/library/stdtypes.html#tuple>`_ / `array.array <https://docs.python.org/3/library/array.html#array.array>`_ / `numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_ of integers or floats.
-It returns a list of values that correspond to the limits of the classes (starting with the minimum value of the series - the lower bound of the first class - and ending with its maximum value - the upper bound of the last class).
+Two ways of using `jenkspy` are available:
 
+- by using the ``jenks_breaks`` function which takes as input a `list <https://docs.python.org/3/library/stdtypes.html#list>`_ / `tuple <https://docs.python.org/3/library/stdtypes.html#tuple>`_ / `array.array <https://docs.python.org/3/library/array.html#array.array>`_ / `numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_ of integers or floats and returns a list of values that correspond to the limits of the classes (starting with the minimum value of the series - the lower bound of the first class - and ending with its maximum value - the upper bound of the last class).
 
 .. code:: python
 
     >>> import jenkspy
-    >>> import random
-    >>> list_of_values = [random.random()*5000 for _ in range(12000)]
-
-    >>> breaks = jenkspy.jenks_breaks(list_of_values, nb_class=6)
-
-    >>> breaks
-	(0.1259707312994962, 1270.571003315598, 2527.460251085392, 3763.0374498649376, 4999.87456576267)
-
     >>> import json
+
     >>> with open('tests/test.json', 'r') as f:
+    ...     # Read some data from a JSON file
     ...     data = json.loads(f.read())
     ...
-    >>> jenkspy.jenks_breaks(data, nb_class=5) # Asking for 5 classes
-    (0.0028109620325267315, 2.0935479691252112, 4.205495140049607, 6.178148351609707, 8.09175917180255, 9.997982932254672)
+    >>> jenkspy.jenks_breaks(data, n_classes=5) # Asking for 5 classes
+    [0.0028109620325267315, 2.0935479691252112, 4.205495140049607, 6.178148351609707, 8.09175917180255, 9.997982932254672]
     # ^                      ^                    ^                 ^                  ^                 ^
     # Lower bound            Upper bound          Upper bound       Upper bound        Upper bound       Upper bound
     # 1st class              1st class            2nd class         3rd class          4th class         5th class
     # (Minimum value)                                                                                    (Maximum value)
 
 
-
-This package also support a ``JenksNaturalBreaks`` class as interface (it requires `NumPy` and it is inspired by ``scikit-learn`` classes).
+- by using the ``JenksNaturalBreaks`` class that is inspired by ``scikit-learn`` classes).
 
 The ``.fit`` and ``.group`` behavior is slightly different from ``jenks_breaks``, by accepting value outside the range of the minimum and maximum value of ``breaks_``, retaining the input size. It means that fit and group will use only the ``inner_breaks_``. All value below the min bound will be included in the first group and all value higher than the max bound will be included in the last group.
-
-Install using ``pip install jenkspy[interface]`` to automatically include ``NumPy``.
-
 
 .. code:: python
 
     >>> from jenkspy import JenksNaturalBreaks
 
-    >>> x = [0,1,2,3,4,5,6,7,8,9,10,11]
+    >>> x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
     >>> jnb = JenksNaturalBreaks(4) # Asking for 4 clusters
 
-    >>> jnb.fit(x)
+    >>> jnb.fit(x) # Create the clusters according to values in 'x'
     >>> print(jnb.labels_) # Labels for fitted data
     ... print(jnb.groups_) # Content of each group
     ... print(jnb.breaks_) # Break values (including min and max)
@@ -87,12 +77,6 @@ Installation
     pip install jenkspy
 
 
-+ **To include numpy in pypi**
-
-.. code:: shell
-
-    pip install jenkspy[interface]
-
 + **From source**
 
 .. code:: shell
@@ -100,7 +84,6 @@ Installation
     git clone http://github.com/mthh/jenkspy
     cd jenkspy/
     python setup.py install
-
 
 + **For anaconda users**
 
@@ -110,15 +93,12 @@ Installation
 
 
 Requirements :
-----------------------------------------------
+--------------
 
--  NumPy\ :sup:`*`
--  C compiler\ :sup:`+`
--  Python C headers\ :sup:`+`
+- `Numpy <https://numpy.org>`_
 
-\ :sup:`*` only for using ``JenksNaturalBreaks`` interface
+-  Only for building from source: C compiler, Python C headers and optionally Cython.
 
-\ :sup:`+` only for building from source
 
 Motivation :
 ------------
@@ -128,7 +108,7 @@ Motivation :
    using *appveyor* / *travis* at first - now it uses *GitHub Actions*).
 -  Getting the break values! (and fast!). No fancy functionality provided,
    but contributions/forks/etc are welcome.
--  Other python implementations are currently existing but not as fast nor available on PyPi.
+-  Other python implementations are currently existing but not as fast or not available on PyPi.
 
 .. |Build status GH| image:: https://github.com/mthh/jenkspy/actions/workflows/wheel.yml/badge.svg
    :target: https://github.com/mthh/jenkspy/actions/workflows/wheel.yml
