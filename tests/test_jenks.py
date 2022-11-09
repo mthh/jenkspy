@@ -247,8 +247,15 @@ class JenksNaturalBreaksClassTestCase(unittest.TestCase):
             jnb.predict(150)
 
         jnb.fit(self.data2)
+
         # predict iterable return numpy array
         predicted = jnb.predict([150, 700])
+        for val_predict, val_true in zip(predicted, self.res7):
+            self.assertEqual(val_predict, val_true)
+            self.assertEqual(type(val_predict).__name__, type(val_true).__name__)
+
+        # also works with other iterable as argument
+        predicted = jnb.predict((i for i in range(150, 701, 550)))
         for val_predict, val_true in zip(predicted, self.res7):
             self.assertEqual(val_predict, val_true)
             self.assertEqual(type(val_predict).__name__, type(val_true).__name__)

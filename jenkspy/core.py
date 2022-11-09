@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from collections.abc import Iterable
-from typing import List, Dict
+from collections.abc import Iterable, Sequence
+from typing import List, Dict, Union
 from . import jenks
 
 
@@ -25,12 +25,12 @@ class JenksNaturalBreaks:
     def __str__(self) -> str:
         return f"JenksNaturalBreaks(n_classes={self.n_classes})"
 
-    def fit(self, x: Iterable[float]) -> None:
+    def fit(self, x: Sequence[float]) -> None:
         """
         Parameters
         ----------
         x : array-like
-            The Iterable sequence of numbers (integer/float) to be classified.
+            The sequence of numbers (integer/float) to be classified.
 
         """
         self.breaks_ = jenks_breaks(x, self.n_classes)
@@ -38,7 +38,7 @@ class JenksNaturalBreaks:
         self.labels_ = self.predict(x)
         self.groups_ = self.group(x)
 
-    def predict(self, x: Iterable[float]) -> np.ndarray:
+    def predict(self, x: Union[float, Iterable[float]]) -> np.ndarray:
         """
         Predicts the class of each element in x.
 
@@ -50,37 +50,36 @@ class JenksNaturalBreaks:
         -------
         list
         """
-        if np.size(x) == 1:
+        if not isinstance(x, Iterable):
             return np.array(self.get_label_(x, idx=0))
-        else:
-            labels_ = []
-            for val in x:
-                label_ = self.get_label_(val, idx=0)
-                labels_.append(label_)
-            return np.array(labels_)
+        labels_ = []
+        for val in x:
+            label_ = self.get_label_(val, idx=0)
+            labels_.append(label_)
+        return np.array(labels_)
 
-    def group(self, x: Iterable[float]) -> List[float]:
+    def group(self, x: Sequence[float]) -> List[np.ndarray]:
         """
         Groups the elements in x into groups according to the classifier.
 
         Parameters
         ----------
         x : array-like
-            The Iterable sequence of numbers (integer/float) to be classified.
+            The sequence of numbers (integer/float) to be classified.
 
         Returns
         -------
         list
             The list of groups that contains the values of x.
         """
-        x = np.array(x)
-        groups_ = [x[x <= self.inner_breaks_[0]]]
+        arr = np.array(x)
+        groups_ = [arr[arr <= self.inner_breaks_[0]]]
         for idx in range(len(self.inner_breaks_))[:-1]:
-            groups_.append(x[(x > self.inner_breaks_[idx])*(x <= self.inner_breaks_[idx + 1])])
-        groups_.append(x[x > self.inner_breaks_[-1]])
+            groups_.append(arr[(arr > self.inner_breaks_[idx])*(arr <= self.inner_breaks_[idx + 1])])
+        groups_.append(arr[arr > self.inner_breaks_[-1]])
         return groups_
 
-    def goodness_of_variance_fit(self, x: Iterable[float]) -> float:
+    def goodness_of_variance_fit(self, x: Sequence[float]) -> float:
         """
         Parameters
         ----------
@@ -91,9 +90,9 @@ class JenksNaturalBreaks:
         float
             The goodness of variance fit.
         """
-        x = np.array(x)
-        array_mean = np.mean(x)
-        sdam = sum([(value - array_mean) ** 2 for value in x])
+        arr = np.array(x)
+        array_mean = np.mean(arr)
+        sdam = sum([(value - array_mean) ** 2 for value in arr])
         sdcm = 0
         for group in self.groups_:
             group_mean = np.mean(group)
@@ -125,8 +124,8 @@ class JenksNaturalBreaks:
             return len(self.inner_breaks_)
 
 
-def validate_input(values: Iterable[float], n_classes: int) -> int:
-    # Check input so that we have an Iterable sequence of numbers
+def validate_input(values: Sequence[float], n_classes: int) -> int:
+    # Check input so that we have a sequence of numbers
     if not isinstance(values, Iterable) or isinstance(values, (str, bytes)):
         raise TypeError("A sequence of numbers is expected")
 
@@ -165,7 +164,7 @@ def validate_input(values: Iterable[float], n_classes: int) -> int:
     return n_classes
 
 
-def jenks_breaks(values: Iterable[float], n_classes: int) -> List[float]:
+def jenks_breaks(values: Sequence[float], n_classes: int) -> List[float]:
     """
     Compute natural breaks (Fisher-Jenks algorithm) on a sequence of `values`,
     given `n_classes`, the number of desired class.
@@ -173,7 +172,7 @@ def jenks_breaks(values: Iterable[float], n_classes: int) -> List[float]:
     Parameters
     ----------
     values : array-like
-        The Iterable sequence of numbers (integer/float) to be used.
+        The sequence of numbers (integer/float) to be used.
     n_classes : int
         The desired number of class. Have to be lesser than or equal
         to the length of `values` and greater than or equal to 1.
@@ -199,7 +198,7 @@ def jenks_breaks(values: Iterable[float], n_classes: int) -> List[float]:
     return jenks._jenks_breaks(values, n_classes)
 
 
-def _jenks_matrices(values: Iterable[float], n_classes: int, testing_algo: bool = False) -> Dict[str, np.ndarray]:
+def _jenks_matrices(values: Sequence[float], n_classes: int, testing_algo: bool = False) -> Dict[str, np.ndarray]:
     """
     Returns the intermediate matrices (lower_class_limits and variance combinations)
     that are created when computing natural breaks (Fisher-Jenks algorithm) on a sequence of `values`,
@@ -210,7 +209,7 @@ def _jenks_matrices(values: Iterable[float], n_classes: int, testing_algo: bool 
     Parameters
     ----------
     values : array-like
-        The Iterable sequence of numbers (integer/float) to be used.
+        The sequence of numbers (integer/float) to be used.
     n_classes : int
         The desired number of class. Have to be lesser than or equal
         to the length of `values` and greater than or equal to 1.
