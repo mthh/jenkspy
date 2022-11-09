@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from collections.abc import Iterable, Sequence
-from typing import List, Dict, Union
+from collections.abc import Iterable as IterableType
+from typing import List, Dict, Union, Iterable, Sequence
 from . import jenks
 
 
@@ -50,7 +50,7 @@ class JenksNaturalBreaks:
         -------
         list
         """
-        if not isinstance(x, Iterable):
+        if not isinstance(x, IterableType):
             return np.array(self.get_label_(x, idx=0))
         labels_ = []
         for val in x:
@@ -126,7 +126,7 @@ class JenksNaturalBreaks:
 
 def validate_input(values: Sequence[float], n_classes: int) -> int:
     # Check input so that we have a sequence of numbers
-    if not isinstance(values, Iterable) or isinstance(values, (str, bytes)):
+    if not isinstance(values, IterableType) or isinstance(values, (str, bytes)):
         raise TypeError("A sequence of numbers is expected")
 
     # Number of classes have to be an integer
