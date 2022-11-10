@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.3.2 (2022-11-10)
+------------------
+
+- Add type hints and fix some docstring about parameters and return types, thanks to Kim Hyeonseok / @plming (#27).
+
 0.3.1 (2022-08-23)
 ------------------
 
