@@ -44,14 +44,15 @@ class JenksNaturalBreaks:
 
         Parameters
         ----------
-        x : array-like
+        x : scalar or array-like
 
         Returns
         -------
-        list
+        numpy.array
         """
         if not isinstance(x, IterableType):
             return np.array(self.get_label_(x, idx=0))
+
         labels_ = []
         for val in x:
             label_ = self.get_label_(val, idx=0)
@@ -69,7 +70,7 @@ class JenksNaturalBreaks:
 
         Returns
         -------
-        list
+        list of numpy.array
             The list of groups that contains the values of x.
         """
         arr = np.array(x)
