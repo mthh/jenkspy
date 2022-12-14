@@ -113,7 +113,7 @@ Motivation :
 .. |Build status GH| image:: https://github.com/mthh/jenkspy/actions/workflows/wheel.yml/badge.svg
    :target: https://github.com/mthh/jenkspy/actions/workflows/wheel.yml
 
-.. |Version| image:: https://img.shields.io/pypi/v/jenkspy.svg
+.. |Version| image:: https://img.shields.io/pypi/v/jenkspy.svg?color=007ec6
    :target: https://pypi.python.org/pypi/jenkspy
 
 .. |Anaconda-Server Badge| image:: https://anaconda.org/conda-forge/jenkspy/badges/version.svg
