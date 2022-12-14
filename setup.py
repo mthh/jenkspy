@@ -46,10 +46,10 @@ setup(
     test_suite="tests",
     author="Matthieu Viry",
     author_email="matthieu.viry@cnrs.fr",
-    url='http://github.com/mthh/jenkspy',
+    url='https://github.com/mthh/jenkspy',
     classifiers=[
         "Programming Language :: Python",
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Operating System :: OS Independent",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.6",
@@ -57,6 +57,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Topic :: Scientific/Engineering",
     ],
 )
