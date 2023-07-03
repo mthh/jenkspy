@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.3.3 (2023-07-03)
+------------------
+
+- Fix error when JenksNaturalBreaks is instanced with n_classes=1 and raise error if n_classes is not a positive integer (fix #28).
+
 0.3.2 (2022-11-10)
 ------------------
 
