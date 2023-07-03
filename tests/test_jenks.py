@@ -278,5 +278,30 @@ class JenksNaturalBreaksClassTestCase(unittest.TestCase):
         for group_fit, group_true in zip(jnb.group(np.array([150, 700])), self.res9):
             self.assertEqual((group_fit == group_true).all(), True)
 
+    def test_one_class(self):
+        """
+        JenksNaturalBreaks should also work if only one classe is asked.
+        """
+        jnb = JenksNaturalBreaks(n_classes=1)
+        jnb.fit(self.data2)
+        g = jnb.group(1000.)
+        self.assertEqual(g, [np.array(1000.)])
+        l = jnb.get_label_(1000.)
+        self.assertEqual(l, 0)
+
+    def test_zero_class(self):
+        """
+        JenksNaturalBreaks shouldn't work with less than 1 class.
+        """
+        with self.assertRaises(ValueError):
+            jnb = JenksNaturalBreaks(0)
+
+        with self.assertRaises(ValueError):
+            jnb = JenksNaturalBreaks(-12)
+
+        with self.assertRaises(TypeError):
+            jnb = JenksNaturalBreaks("abc")
+
+
 if __name__ == "__main__":
     unittest.main()
