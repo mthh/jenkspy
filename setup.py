@@ -4,14 +4,10 @@ from distutils.extension import Extension
 from ast import parse
 from os import path
 
-try:
-    from Cython.Distutils import build_ext
-    from Cython.Build import cythonize
-    USE_CYTHON = True
-except ImportError:
-    USE_CYTHON = False
+from Cython.Distutils import build_ext
+from Cython.Build import cythonize
 
-ext = '.pyx' if USE_CYTHON else '.c'
+ext = '.pyx'
 
 exts = [
     Extension(
@@ -35,8 +31,8 @@ setup(
     name='jenkspy',
     version=__version__,
     license="MIT",
-    ext_modules=cythonize(exts) if USE_CYTHON else exts,
-    cmdclass={'build_ext': build_ext} if USE_CYTHON else {},
+    ext_modules=cythonize(exts),
+    cmdclass={'build_ext': build_ext},
     packages=["jenkspy"],
     include_package_data=True,
     description="Compute Natural Breaks (Fisher-Jenks algorithm)",
@@ -58,6 +54,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Topic :: Scientific/Engineering",
         "Typing :: Typed",
     ],
