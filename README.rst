@@ -97,7 +97,7 @@ Requirements :
 
 - `Numpy <https://numpy.org>`_
 
--  Only for building from source: C compiler, Python C headers and optionally Cython.
+-  Only for building from source: C compiler, Python C headers, setuptools and Cython.
 
 
 Motivation :
