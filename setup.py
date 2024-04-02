@@ -21,7 +21,7 @@ with open(path.join('jenkspy', '__init__.py')) as f:
     __version__ = parse(next(filter(lambda line: line.startswith('__version__'),
                                      f))).body[0].value.s
 
-with open('README.rst') as f:
+with open('README.md') as f:
     long_desc = f.read()
 
 with open('requirements.txt') as f:
