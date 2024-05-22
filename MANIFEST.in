@@ -1,7 +1,1 @@
-# C/cython source files
-include jenkspy/src/*
-
-include README.md
-include LICENSE
-include tests/*.*
-include requirements.txt
+graft tests
