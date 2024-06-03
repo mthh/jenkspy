@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__version__ = "0.4.0"
+__version__ = "0.4.1"
 
 from .core import jenks_breaks
 from .core import _jenks_matrices

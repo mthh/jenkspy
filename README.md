@@ -4,7 +4,7 @@ Compute "natural breaks" (*Fisher-Jenks algorithm*) on list / tuple / array / nu
 
 The algorithm implemented by this library is also sometimes referred to as *Fisher-Jenks algorithm*, *Jenks Optimisation Method* or *Fisher exact optimization method*. This is a deterministic method to calculate the optimal class boundaries.
 
-Intended compatibility: CPython 3.6+
+Intended compatibility: CPython 3.7+
 
 Wheels are provided via PyPI for Windows / MacOS / Linux users - Also available on conda-forge channel for Anaconda users.
 
@@ -86,7 +86,7 @@ pip install jenkspy
 ```shell
 git clone http://github.com/mthh/jenkspy
 cd jenkspy/
-python setup.py install
+pip install .
 ```
 
 - **For anaconda users**
