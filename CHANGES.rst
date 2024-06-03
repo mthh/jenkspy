@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.4.1 (2024-06-03)
+------------------
+
+- Introduce pyproject.toml to replace the old way of describing the project and specifying build dependencies, thanks to @filip-komarzyniec (see PR #31).
+
 0.4.0 (2023-11-30)
 ------------------
 
