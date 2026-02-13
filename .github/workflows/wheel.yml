@@ -23,7 +23,7 @@ jobs:
         env:
           CIBW_BEFORE_BUILD: pip install numpy cython
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-          CIBW_SKIP: "pp* *musllinux*"
+          CIBW_SKIP: "*musllinux*"
           CIBW_ARCHS_LINUX: "x86_64"
           CIBW_ARCHS_MACOS: "x86_64 arm64"
           CIBW_ARCHS_WINDOWS: "AMD64"
