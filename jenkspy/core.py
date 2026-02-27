@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 from collections.abc import Iterable as IterableType
-from typing import List, Dict, Union, Iterable, Sequence
+from typing import Tuple, List, Dict, Union, Iterable, Sequence
 from . import jenks
+import matplotlib.pyplot as plt
 
 
 class JenksNaturalBreaks:
@@ -244,3 +245,64 @@ def _jenks_matrices(values: Sequence[float], n_classes: int, testing_algo: bool 
         raise ValueError('testing_algo parameters have to be either True or False')
 
     return jenks._jenks_matrices(values, n_classes, testing_algo)
+
+
+def elbow_chart(array: Sequence[float], upper_bound: int, lower_bound: int = 2) -> Tuple[plt.Figure, Dict[int, float]]:
+    """
+    Derive elbow chart of Goodness of Variance Fit to help determine optimal number of classes,
+    given `lower_bound` and `upper_bound`, the range of desired number of classes.
+
+    Parameters
+    ----------
+    array : Sequence[float]
+        The sequence of numbers (integer/float) to be used.
+    upper_bound : int
+        The maximum desired number of classes. Must be greater than `lower_bound`.
+    lower_bound : int, optional
+        The minimum desired number of classes. Default is 2.
+
+    Returns
+    -------
+    Tuple[plt.Figure, Dict[int, float]]
+        A tuple containing the matplotlib figure object of the elbow chart and
+        a dictionary with the number of classes as keys and the corresponding
+        goodness of variance fit values as values.
+    """
+    # Check if lower and upper bounds are integers
+    for bound_type, bound in {"lower_bound": lower_bound, "upper_bound": upper_bound}.items():
+        if isinstance(bound, float) and int(bound) == bound:
+                bound = int(bound)
+        if not isinstance(bound, int):
+            raise TypeError(
+                "Lower and upper bound has to be a positive integer: "
+                "expected an instance of 'int' but found {} in {}"
+                .format(type(bound), bound_type))
+    
+    # Check if upper bound is greater than lower bound
+    if int(upper_bound) <= int(lower_bound):
+        raise ValueError("upper_bound must be greater than lower_bound")
+    
+    # Pre-allocate lists with size to store results instead of appending in loop
+    n_classes_list = list(range(lower_bound, upper_bound + 1))
+    gvf_list = [0] * (upper_bound - lower_bound + 1)
+    
+    # Loop over each n_class and get corresponding Goodness of Variance Fit
+    for i, n_classes in enumerate(n_classes_list):
+        jnb = JenksNaturalBreaks(n_classes)
+        jnb.fit(array)
+        gvf_list[i] = jnb.goodness_of_variance_fit(array)
+
+    # Store results in dictionary
+    results = {n_classes_list[i]:gvf_list[i] for i in range(len(n_classes_list))}
+    
+    # Plot the elbow chart
+    plt.figure(figsize=(10, 6))
+    plt.plot(n_classes_list, gvf_list, marker='o')
+    plt.title('Elbow Chart for Goodness of Variance Fit')
+    plt.xlabel('Number of Classes')
+    plt.ylabel('Goodness of Variance Fit')
+    plt.grid(True)
+    plt.show()
+    
+    # Return the plot and the results dictionary
+    return (plt, results)
